@@ -1,6 +1,6 @@
 # How Many Pools in São Paulo?
 
-Solution for the **Nimbus Level 3** challenge by [CloudWalk](https://nimbus.cloudwalk.io/).
+Solution for the **Nimbus Challenge 1.2** by [CloudWalk](https://www.cloudwalk.io/nimbus).
 
 Estimates the total number of swimming pools in São Paulo by combining computer vision detection (YOLOv8) with statistical extrapolation over satellite imagery.
 
