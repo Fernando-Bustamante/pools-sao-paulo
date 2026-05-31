@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Dados brutos e pesos (grandes demais para git)
+data/raw/
+data/labeled/
+models/
+
+# Saídas geradas
+outputs/
+
+# Credenciais
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
