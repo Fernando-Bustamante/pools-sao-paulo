@@ -1,72 +1,72 @@
 # How Many Pools in São Paulo?
 
-Solução para o desafio **Nimbus Level 3** da [CloudWalk](https://nimbus.cloudwalk.io/).
+Solution for the **Nimbus Level 3** challenge by [CloudWalk](https://nimbus.cloudwalk.io/).
 
-Estima o número total de piscinas em São Paulo combinando detecção por visão computacional (YOLOv8) com extrapolação estatística sobre imagens de satélite.
+Estimates the total number of swimming pools in São Paulo by combining computer vision detection (YOLOv8) with statistical extrapolation over satellite imagery.
 
 ## Pipeline
 
 ```
-Amostragem de localizações (SP bbox)
+Sample locations (SP bounding box)
         ↓
-Download de tiles via Google Maps Static API
+Download tiles via Google Maps Static API
         ↓
-Fine-tune YOLOv8 em dataset de piscinas (Roboflow)
+Fine-tune YOLOv8 on pool dataset (Roboflow)
         ↓
-Inferência em lote → contagem por imagem
+Batch inference → pool count per image
         ↓
-Extrapolação estatística → estimativa total + IC 95%
+Statistical extrapolation → total estimate + 95% CI
         ↓
-Mapa Folium interativo (heatmap + choropleth por distrito)
+Interactive Folium map (heatmap + choropleth by district)
 ```
 
-## Resultado esperado
+## Expected Results
 
-| Métrica | Meta |
+| Metric | Target |
 |---|---|
 | mAP@0.5 | > 0.65 |
-| Cobertura amostral | ~1.000 imagens |
+| Sample coverage | ~1,000 images |
 | Output | `outputs/map.html` |
 
-## Instalação
+## Installation
 
 ```bash
 pip install -r requirements.txt
 cp .env.example .env
-# preencha as chaves no .env
+# fill in your API keys in .env
 ```
 
-## Uso
+## Usage
 
 ```bash
-# Pipeline completo
+# Full pipeline
 python main.py --steps all
 
-# Apenas etapas específicas
+# Specific steps only
 python main.py --steps collect detect estimate
 ```
 
-## Estrutura
+## Project Structure
 
 ```
 pools-sao-paulo/
 ├── src/
-│   ├── collect.py    # amostragem + download de tiles
-│   ├── train.py      # fine-tune YOLOv8
-│   ├── detect.py     # inferência em lote
-│   ├── estimate.py   # extrapolação estatística
-│   └── visualize.py  # mapa Folium
+│   ├── collect.py    # location sampling + tile download
+│   ├── train.py      # YOLOv8 fine-tuning
+│   ├── detect.py     # batch inference
+│   ├── estimate.py   # statistical extrapolation
+│   └── visualize.py  # Folium map
 ├── data/
-│   ├── raw/          # imagens baixadas (gitignored)
-│   ├── labeled/      # dataset de treino (gitignored)
-│   └── samples/      # pontos amostrados (CSV)
-├── models/           # pesos treinados (gitignored)
-├── outputs/          # resultados (gitignored)
+│   ├── raw/          # downloaded images (gitignored)
+│   ├── labeled/      # training dataset (gitignored)
+│   └── samples/      # sampled points (CSV)
+├── models/           # trained weights (gitignored)
+├── outputs/          # results (gitignored)
 ├── main.py
 └── requirements.txt
 ```
 
-## Chaves necessárias
+## Required API Keys
 
 - `GOOGLE_MAPS_API_KEY` — [Google Cloud Console](https://console.cloud.google.com/) → Maps Static API
-- `ROBOFLOW_API_KEY` — [Roboflow](https://roboflow.com/) → dataset de piscinas
+- `ROBOFLOW_API_KEY` — [Roboflow](https://roboflow.com/) → pool dataset
